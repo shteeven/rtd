@@ -8,7 +8,6 @@
   HomeController.$inject = ['$scope', '$state', '$http'];
 
   function HomeController($scope, $state, $http) {
-
     var vm = this;
 
     vm.from = '';
@@ -18,17 +17,19 @@
     var url = '/api/routes';
 
     vm.getRoute = function () {
-      $http.get({
-        url: url,
-        method: 'GET',
-        params: {from: vm.from, to: vm.to}
-      }).then(function (data) {
-        vm.results = data.data;
-        vm.isRoute = true;
-      }, function (error) {
-        console.log(error);
-      });
-    }
+      console.log('fired');
+      vm.isRoute = true;
+      // $http.get({
+      //   url: url,
+      //   method: 'GET',
+      //   params: {from: vm.from, to: vm.to}
+      // }).then(function (data) {
+      //   vm.results = data.data;
+      //   vm.isRoute = true;
+      // }, function (error) {
+      //   console.log(error);
+      // });
 
+    };
   }
 }());
