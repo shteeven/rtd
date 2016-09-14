@@ -69,24 +69,24 @@ describe('Article CRUD tests', function () {
           return done(signinErr);
         }
 
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(403)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Call the assertion callback
-            done(articleSaveErr);
+            done(rtdaveErr);
           });
 
       });
   });
 
   it('should not be able to save an article if not logged in', function (done) {
-    agent.post('/api/articles')
+    agent.post('/api/rtd')
       .send(article)
       .expect(403)
-      .end(function (articleSaveErr, articleSaveRes) {
+      .end(function (rtdaveErr, rtdaveRes) {
         // Call the assertion callback
-        done(articleSaveErr);
+        done(rtdaveErr);
       });
   });
 
@@ -100,24 +100,24 @@ describe('Article CRUD tests', function () {
           return done(signinErr);
         }
 
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(403)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Call the assertion callback
-            done(articleSaveErr);
+            done(rtdaveErr);
           });
       });
   });
 
-  it('should be able to get a list of articles if not signed in', function (done) {
+  it('should be able to get a list of rtd if not signed in', function (done) {
     // Create new article model instance
     var articleObj = new Article(article);
 
     // Save the article
     articleObj.save(function () {
-      // Request articles
-      request(app).get('/api/articles')
+      // Request rtd
+      request(app).get('/api/rtd')
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Array).and.have.lengthOf(1);
@@ -135,7 +135,7 @@ describe('Article CRUD tests', function () {
 
     // Save the article
     articleObj.save(function () {
-      request(app).get('/api/articles/' + articleObj._id)
+      request(app).get('/api/rtd/' + articleObj._id)
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Object).and.have.property('title', article.title);
@@ -148,7 +148,7 @@ describe('Article CRUD tests', function () {
 
   it('should return proper error for single article with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
-    request(app).get('/api/articles/test')
+    request(app).get('/api/rtd/test')
       .end(function (req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'Article is invalid');
@@ -160,7 +160,7 @@ describe('Article CRUD tests', function () {
 
   it('should return proper error for single article which doesnt exist, if not signed in', function (done) {
     // This is a valid mongoose Id but a non-existent article
-    request(app).get('/api/articles/559e9cd815f80b4c256a8f41')
+    request(app).get('/api/rtd/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'No article with that identifier has been found');
@@ -180,12 +180,12 @@ describe('Article CRUD tests', function () {
           return done(signinErr);
         }
 
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(403)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Call the assertion callback
-            done(articleSaveErr);
+            done(rtdaveErr);
           });
       });
   });
@@ -200,7 +200,7 @@ describe('Article CRUD tests', function () {
     // Save the article
     articleObj.save(function () {
       // Try deleting article
-      request(app).delete('/api/articles/' + articleObj._id)
+      request(app).delete('/api/rtd/' + articleObj._id)
         .expect(403)
         .end(function (articleDeleteErr, articleDeleteRes) {
           // Set message assertion
@@ -251,19 +251,19 @@ describe('Article CRUD tests', function () {
           var orphanId = orphan._id;
 
           // Save a new article
-          agent.post('/api/articles')
+          agent.post('/api/rtd')
             .send(article)
             .expect(200)
-            .end(function (articleSaveErr, articleSaveRes) {
+            .end(function (rtdaveErr, rtdaveRes) {
               // Handle article save error
-              if (articleSaveErr) {
-                return done(articleSaveErr);
+              if (rtdaveErr) {
+                return done(rtdaveErr);
               }
 
               // Set assertions on new article
-              (articleSaveRes.body.title).should.equal(article.title);
-              should.exist(articleSaveRes.body.user);
-              should.equal(articleSaveRes.body.user._id, orphanId);
+              (rtdaveRes.body.title).should.equal(article.title);
+              should.exist(rtdaveRes.body.user);
+              should.equal(rtdaveRes.body.user._id, orphanId);
 
               // force the article to have an orphaned user reference
               orphan.remove(function () {
@@ -278,7 +278,7 @@ describe('Article CRUD tests', function () {
                     }
 
                     // Get the article
-                    agent.get('/api/articles/' + articleSaveRes.body._id)
+                    agent.get('/api/rtd/' + rtdaveRes.body._id)
                       .expect(200)
                       .end(function (articleInfoErr, articleInfoRes) {
                         // Handle article error
@@ -287,7 +287,7 @@ describe('Article CRUD tests', function () {
                         }
 
                         // Set assertions
-                        (articleInfoRes.body._id).should.equal(articleSaveRes.body._id);
+                        (articleInfoRes.body._id).should.equal(rtdaveRes.body._id);
                         (articleInfoRes.body.title).should.equal(article.title);
                         should.equal(articleInfoRes.body.user, undefined);
 
@@ -307,7 +307,7 @@ describe('Article CRUD tests', function () {
 
     // Save the article
     articleObj.save(function () {
-      request(app).get('/api/articles/' + articleObj._id)
+      request(app).get('/api/rtd/' + articleObj._id)
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Object).and.have.property('title', article.title);
@@ -358,19 +358,19 @@ describe('Article CRUD tests', function () {
           var userId = _user._id;
 
           // Save a new article
-          agent.post('/api/articles')
+          agent.post('/api/rtd')
             .send(article)
             .expect(200)
-            .end(function (articleSaveErr, articleSaveRes) {
+            .end(function (rtdaveErr, rtdaveRes) {
               // Handle article save error
-              if (articleSaveErr) {
-                return done(articleSaveErr);
+              if (rtdaveErr) {
+                return done(rtdaveErr);
               }
 
               // Set assertions on new article
-              (articleSaveRes.body.title).should.equal(article.title);
-              should.exist(articleSaveRes.body.user);
-              should.equal(articleSaveRes.body.user._id, userId);
+              (rtdaveRes.body.title).should.equal(article.title);
+              should.exist(rtdaveRes.body.user);
+              should.equal(rtdaveRes.body.user._id, userId);
 
               // now signin with the test suite user
               agent.post('/api/auth/signin')
@@ -383,7 +383,7 @@ describe('Article CRUD tests', function () {
                   }
 
                   // Get the article
-                  agent.get('/api/articles/' + articleSaveRes.body._id)
+                  agent.get('/api/rtd/' + rtdaveRes.body._id)
                     .expect(200)
                     .end(function (articleInfoErr, articleInfoRes) {
                       // Handle article error
@@ -392,7 +392,7 @@ describe('Article CRUD tests', function () {
                       }
 
                       // Set assertions
-                      (articleInfoRes.body._id).should.equal(articleSaveRes.body._id);
+                      (articleInfoRes.body._id).should.equal(rtdaveRes.body._id);
                       (articleInfoRes.body.title).should.equal(article.title);
                       // Assert that the custom field "isCurrentUserOwner" is set to false since the current User didn't create it
                       (articleInfoRes.body.isCurrentUserOwner).should.equal(false);

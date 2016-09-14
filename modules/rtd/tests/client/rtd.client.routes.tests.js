@@ -1,10 +1,10 @@
 (function () {
   'use strict';
 
-  describe('Articles Route Tests', function () {
+  describe('Rtd Route Tests', function () {
     // Initialize global variables
     var $scope,
-      ArticlesService;
+      RtdService;
 
     // We can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
@@ -12,21 +12,21 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($rootScope, _ArticlesService_) {
+    beforeEach(inject(function ($rootScope, _RtdService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
-      ArticlesService = _ArticlesService_;
+      RtdService = _RtdService_;
     }));
 
     describe('Route Config', function () {
       describe('Main Route', function () {
         var mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('articles');
+          mainstate = $state.get('rtd');
         }));
 
         it('Should have the correct URL', function () {
-          expect(mainstate.url).toEqual('/articles');
+          expect(mainstate.url).toEqual('/rtd');
         });
 
         it('Should be abstract', function () {
@@ -41,7 +41,7 @@
       describe('List Route', function () {
         var liststate;
         beforeEach(inject(function ($state) {
-          liststate = $state.get('articles.list');
+          liststate = $state.get('rtd.list');
         }));
 
         it('Should have the correct URL', function () {
@@ -53,28 +53,28 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(liststate.templateUrl).toBe('modules/articles/client/views/list-articles.client.view.html');
+          expect(liststate.templateUrl).toBe('modules/rtd/client/views/list-rtd.client.view.html');
         });
       });
 
       describe('View Route', function () {
         var viewstate,
-          ArticlesController,
+          RtdController,
           mockArticle;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          viewstate = $state.get('articles.view');
-          $templateCache.put('modules/articles/client/views/view-article.client.view.html', '');
+          viewstate = $state.get('rtd.view');
+          $templateCache.put('modules/rtd/client/views/view-article.client.view.html', '');
 
           // create mock article
-          mockArticle = new ArticlesService({
+          mockArticle = new RtdService({
             _id: '525a8422f6d0f87f0e407a33',
             title: 'An Article about MEAN',
             content: 'MEAN rocks!'
           });
 
           // Initialize Controller
-          ArticlesController = $controller('ArticlesController as vm', {
+          RtdController = $controller('RtdController as vm', {
             $scope: $scope,
             articleResolve: mockArticle
           });
@@ -92,7 +92,7 @@
         it('should respond to URL', inject(function ($state) {
           expect($state.href(viewstate, {
             articleId: 1
-          })).toEqual('/articles/1');
+          })).toEqual('/rtd/1');
         }));
 
         it('should attach an article to the controller scope', function () {
@@ -104,22 +104,22 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(viewstate.templateUrl).toBe('modules/articles/client/views/view-article.client.view.html');
+          expect(viewstate.templateUrl).toBe('modules/rtd/client/views/view-article.client.view.html');
         });
       });
 
       describe('Handle Trailing Slash', function () {
         beforeEach(inject(function ($state, $rootScope) {
-          $state.go('articles.list');
+          $state.go('rtd.list');
           $rootScope.$digest();
         }));
 
         it('Should remove trailing slash', inject(function ($state, $location, $rootScope) {
-          $location.path('articles/');
+          $location.path('rtd/');
           $rootScope.$digest();
 
-          expect($location.path()).toBe('/articles');
-          expect($state.current.templateUrl).toBe('modules/articles/client/views/list-articles.client.view.html');
+          expect($location.path()).toBe('/rtd');
+          expect($state.current.templateUrl).toBe('modules/rtd/client/views/list-rtd.client.view.html');
         }));
       });
     });

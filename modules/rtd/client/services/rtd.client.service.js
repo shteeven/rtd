@@ -2,13 +2,13 @@
   'use strict';
 
   angular
-    .module('articles.services')
-    .factory('ArticlesService', ArticlesService);
+    .module('rtd.services')
+    .factory('RtdService', RtdService);
 
-  ArticlesService.$inject = ['$resource'];
+  RtdService.$inject = ['$resource'];
 
-  function ArticlesService($resource) {
-    var Article = $resource('api/articles/:articleId', {
+  function RtdService($resource) {
+    var Article = $resource('api/rtd/:articleId', {
       articleId: '@_id'
     }, {
       update: {

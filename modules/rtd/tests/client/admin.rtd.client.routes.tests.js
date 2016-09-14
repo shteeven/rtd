@@ -1,10 +1,10 @@
 ﻿(function () {
   'use strict';
 
-  describe('Articles Route Tests', function () {
+  describe('Rtd Route Tests', function () {
     // Initialize global variables
     var $scope,
-      ArticlesService;
+      RtdService;
 
     // We can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
@@ -12,21 +12,21 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($rootScope, _ArticlesService_) {
+    beforeEach(inject(function ($rootScope, _RtdService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
-      ArticlesService = _ArticlesService_;
+      RtdService = _RtdService_;
     }));
 
     describe('Route Config', function () {
       describe('Main Route', function () {
         var mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('admin.articles');
+          mainstate = $state.get('admin.rtd');
         }));
 
         it('Should have the correct URL', function () {
-          expect(mainstate.url).toEqual('/articles');
+          expect(mainstate.url).toEqual('/rtd');
         });
 
         it('Should be abstract', function () {
@@ -41,7 +41,7 @@
       describe('List Route', function () {
         var liststate;
         beforeEach(inject(function ($state) {
-          liststate = $state.get('admin.articles.list');
+          liststate = $state.get('admin.rtd.list');
         }));
 
         it('Should have the correct URL', function () {
@@ -53,24 +53,24 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(liststate.templateUrl).toBe('modules/articles/client/views/admin/list-articles.client.view.html');
+          expect(liststate.templateUrl).toBe('modules/rtd/client/views/admin/list-rtd.client.view.html');
         });
       });
 
       describe('Create Route', function () {
         var createstate,
-          ArticlesAdminController,
+          RtdAdminController,
           mockArticle;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          createstate = $state.get('admin.articles.create');
-          $templateCache.put('modules/articles/client/views/admin/form-article.client.view.html', '');
+          createstate = $state.get('admin.rtd.create');
+          $templateCache.put('modules/rtd/client/views/admin/form-article.client.view.html', '');
 
           // Create mock article
-          mockArticle = new ArticlesService();
+          mockArticle = new RtdService();
 
           // Initialize Controller
-          ArticlesAdminController = $controller('ArticlesAdminController as vm', {
+          RtdAdminController = $controller('RtdAdminController as vm', {
             $scope: $scope,
             articleResolve: mockArticle
           });
@@ -86,7 +86,7 @@
         });
 
         it('should respond to URL', inject(function ($state) {
-          expect($state.href(createstate)).toEqual('/admin/articles/create');
+          expect($state.href(createstate)).toEqual('/admin/rtd/create');
         }));
 
         it('should attach an article to the controller scope', function () {
@@ -99,28 +99,28 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(createstate.templateUrl).toBe('modules/articles/client/views/admin/form-article.client.view.html');
+          expect(createstate.templateUrl).toBe('modules/rtd/client/views/admin/form-article.client.view.html');
         });
       });
 
       describe('Edit Route', function () {
         var editstate,
-          ArticlesAdminController,
+          RtdAdminController,
           mockArticle;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          editstate = $state.get('admin.articles.edit');
-          $templateCache.put('modules/articles/client/views/admin/form-article.client.view.html', '');
+          editstate = $state.get('admin.rtd.edit');
+          $templateCache.put('modules/rtd/client/views/admin/form-article.client.view.html', '');
 
           // Create mock article
-          mockArticle = new ArticlesService({
+          mockArticle = new RtdService({
             _id: '525a8422f6d0f87f0e407a33',
             title: 'An Article about MEAN',
             content: 'MEAN rocks!'
           });
 
           // Initialize Controller
-          ArticlesAdminController = $controller('ArticlesAdminController as vm', {
+          RtdAdminController = $controller('RtdAdminController as vm', {
             $scope: $scope,
             articleResolve: mockArticle
           });
@@ -138,7 +138,7 @@
         it('should respond to URL', inject(function ($state) {
           expect($state.href(editstate, {
             articleId: 1
-          })).toEqual('/admin/articles/1/edit');
+          })).toEqual('/admin/rtd/1/edit');
         }));
 
         it('should attach an article to the controller scope', function () {
@@ -150,7 +150,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(editstate.templateUrl).toBe('modules/articles/client/views/admin/form-article.client.view.html');
+          expect(editstate.templateUrl).toBe('modules/rtd/client/views/admin/form-article.client.view.html');
         });
 
         xit('Should go to unauthorized route', function () {

@@ -2,12 +2,12 @@
   'use strict';
 
   angular
-    .module('articles.admin')
-    .controller('ArticlesAdminController', ArticlesAdminController);
+    .module('rtd.admin')
+    .controller('RtdAdminController', RtdAdminController);
 
-  ArticlesAdminController.$inject = ['$scope', '$state', '$window', 'articleResolve', 'Authentication'];
+  RtdAdminController.$inject = ['$scope', '$state', '$window', 'articleResolve', 'Authentication'];
 
-  function ArticlesAdminController($scope, $state, $window, article, Authentication) {
+  function RtdAdminController($scope, $state, $window, article, Authentication) {
     var vm = this;
 
     vm.article = article;
@@ -20,7 +20,7 @@
     // Remove existing Article
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
-        vm.article.$remove($state.go('admin.articles.list'));
+        vm.article.$remove($state.go('admin.rtd.list'));
       }
     }
 
@@ -37,7 +37,7 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        $state.go('admin.articles.list'); // should we send the User to the list or the updated Article's view?
+        $state.go('admin.rtd.list'); // should we send the User to the list or the updated Article's view?
       }
 
       function errorCallback(res) {

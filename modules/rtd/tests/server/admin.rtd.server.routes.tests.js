@@ -73,29 +73,29 @@ describe('Article Admin CRUD tests', function () {
         var userId = user.id;
 
         // Save a new article
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(200)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Handle article save error
-            if (articleSaveErr) {
-              return done(articleSaveErr);
+            if (rtdaveErr) {
+              return done(rtdaveErr);
             }
 
-            // Get a list of articles
-            agent.get('/api/articles')
-              .end(function (articlesGetErr, articlesGetRes) {
+            // Get a list of rtd
+            agent.get('/api/rtd')
+              .end(function (rtdGetErr, rtdGetRes) {
                 // Handle article save error
-                if (articlesGetErr) {
-                  return done(articlesGetErr);
+                if (rtdGetErr) {
+                  return done(rtdGetErr);
                 }
 
-                // Get articles list
-                var articles = articlesGetRes.body;
+                // Get rtd list
+                var rtd = rtdGetRes.body;
 
                 // Set assertions
-                (articles[0].user._id).should.equal(userId);
-                (articles[0].title).should.match('Article Title');
+                (rtd[0].user._id).should.equal(userId);
+                (rtd[0].title).should.match('Article Title');
 
                 // Call the assertion callback
                 done();
@@ -118,20 +118,20 @@ describe('Article Admin CRUD tests', function () {
         var userId = user.id;
 
         // Save a new article
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(200)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Handle article save error
-            if (articleSaveErr) {
-              return done(articleSaveErr);
+            if (rtdaveErr) {
+              return done(rtdaveErr);
             }
 
             // Update article title
             article.title = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing article
-            agent.put('/api/articles/' + articleSaveRes.body._id)
+            agent.put('/api/rtd/' + rtdaveRes.body._id)
               .send(article)
               .expect(200)
               .end(function (articleUpdateErr, articleUpdateRes) {
@@ -141,7 +141,7 @@ describe('Article Admin CRUD tests', function () {
                 }
 
                 // Set assertions
-                (articleUpdateRes.body._id).should.equal(articleSaveRes.body._id);
+                (articleUpdateRes.body._id).should.equal(rtdaveRes.body._id);
                 (articleUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
@@ -168,15 +168,15 @@ describe('Article Admin CRUD tests', function () {
         var userId = user.id;
 
         // Save a new article
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(400)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Set message assertion
-            (articleSaveRes.body.message).should.match('Title cannot be blank');
+            (rtdaveRes.body.message).should.match('Title cannot be blank');
 
             // Handle article save error
-            done(articleSaveErr);
+            done(rtdaveErr);
           });
       });
   });
@@ -195,17 +195,17 @@ describe('Article Admin CRUD tests', function () {
         var userId = user.id;
 
         // Save a new article
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(200)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Handle article save error
-            if (articleSaveErr) {
-              return done(articleSaveErr);
+            if (rtdaveErr) {
+              return done(rtdaveErr);
             }
 
             // Delete an existing article
-            agent.delete('/api/articles/' + articleSaveRes.body._id)
+            agent.delete('/api/rtd/' + rtdaveRes.body._id)
               .send(article)
               .expect(200)
               .end(function (articleDeleteErr, articleDeleteRes) {
@@ -215,7 +215,7 @@ describe('Article Admin CRUD tests', function () {
                 }
 
                 // Set assertions
-                (articleDeleteRes.body._id).should.equal(articleSaveRes.body._id);
+                (articleDeleteRes.body._id).should.equal(rtdaveRes.body._id);
 
                 // Call the assertion callback
                 done();
@@ -242,17 +242,17 @@ describe('Article Admin CRUD tests', function () {
         var userId = user.id;
 
         // Save a new article
-        agent.post('/api/articles')
+        agent.post('/api/rtd')
           .send(article)
           .expect(200)
-          .end(function (articleSaveErr, articleSaveRes) {
+          .end(function (rtdaveErr, rtdaveRes) {
             // Handle article save error
-            if (articleSaveErr) {
-              return done(articleSaveErr);
+            if (rtdaveErr) {
+              return done(rtdaveErr);
             }
 
             // Get the article
-            agent.get('/api/articles/' + articleSaveRes.body._id)
+            agent.get('/api/rtd/' + rtdaveRes.body._id)
               .expect(200)
               .end(function (articleInfoErr, articleInfoRes) {
                 // Handle article error
@@ -261,7 +261,7 @@ describe('Article Admin CRUD tests', function () {
                 }
 
                 // Set assertions
-                (articleInfoRes.body._id).should.equal(articleSaveRes.body._id);
+                (articleInfoRes.body._id).should.equal(rtdaveRes.body._id);
                 (articleInfoRes.body.title).should.equal(article.title);
 
                 // Assert that the "isCurrentUserOwner" field is set to true since the current User created it

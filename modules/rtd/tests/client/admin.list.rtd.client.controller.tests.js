@@ -1,14 +1,14 @@
 ﻿(function () {
   'use strict';
 
-  describe('Admin Articles List Controller Tests', function () {
+  describe('Admin Rtd List Controller Tests', function () {
     // Initialize global variables
-    var ArticlesAdminListController,
+    var RtdAdminListController,
       $scope,
       $httpBackend,
       $state,
       Authentication,
-      ArticlesService,
+      RtdService,
       mockArticle;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -36,7 +36,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ArticlesService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _RtdService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -44,10 +44,10 @@
       $httpBackend = _$httpBackend_;
       $state = _$state_;
       Authentication = _Authentication_;
-      ArticlesService = _ArticlesService_;
+      RtdService = _RtdService_;
 
       // create mock article
-      mockArticle = new ArticlesService({
+      mockArticle = new RtdService({
         _id: '525a8422f6d0f87f0e407a33',
         title: 'An Article about MEAN',
         content: 'MEAN rocks!'
@@ -58,8 +58,8 @@
         roles: ['user', 'admin']
       };
 
-      // Initialize the Articles List controller.
-      ArticlesAdminListController = $controller('ArticlesAdminListController as vm', {
+      // Initialize the Rtd List controller.
+      RtdAdminListController = $controller('RtdAdminListController as vm', {
         $scope: $scope
       });
 
@@ -74,17 +74,17 @@
         mockArticleList = [mockArticle, mockArticle];
       });
 
-      it('should send a GET request and return all articles', inject(function (ArticlesService) {
+      it('should send a GET request and return all rtd', inject(function (RtdService) {
         // Set POST response
-        $httpBackend.expectGET('api/articles').respond(mockArticleList);
+        $httpBackend.expectGET('api/rtd').respond(mockArticleList);
 
 
         $httpBackend.flush();
 
         // Test form inputs are reset
-        expect($scope.vm.articles.length).toEqual(2);
-        expect($scope.vm.articles[0]).toEqual(mockArticle);
-        expect($scope.vm.articles[1]).toEqual(mockArticle);
+        expect($scope.vm.rtd.length).toEqual(2);
+        expect($scope.vm.rtd[0]).toEqual(mockArticle);
+        expect($scope.vm.rtd[1]).toEqual(mockArticle);
 
       }));
     });

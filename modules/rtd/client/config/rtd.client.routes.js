@@ -2,31 +2,31 @@
   'use strict';
 
   angular
-    .module('articles.routes')
+    .module('rtd.routes')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('articles', {
+      .state('rtd', {
         abstract: true,
-        url: '/articles',
+        url: '/rtd',
         template: '<ui-view/>'
       })
-      .state('articles.list', {
+      .state('rtd.list', {
         url: '',
-        templateUrl: 'modules/articles/client/views/list-articles.client.view.html',
-        controller: 'ArticlesListController',
+        templateUrl: 'modules/rtd/client/views/list-rtd.client.view.html',
+        controller: 'RtdListController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Articles List'
+          pageTitle: 'Rtd List'
         }
       })
-      .state('articles.view', {
+      .state('rtd.view', {
         url: '/:articleId',
-        templateUrl: 'modules/articles/client/views/view-article.client.view.html',
-        controller: 'ArticlesController',
+        templateUrl: 'modules/rtd/client/views/view-article.client.view.html',
+        controller: 'RtdController',
         controllerAs: 'vm',
         resolve: {
           articleResolve: getArticle
@@ -37,10 +37,10 @@
       });
   }
 
-  getArticle.$inject = ['$stateParams', 'ArticlesService'];
+  getArticle.$inject = ['$stateParams', 'RtdService'];
 
-  function getArticle($stateParams, ArticlesService) {
-    return ArticlesService.get({
+  function getArticle($stateParams, RtdService) {
+    return RtdService.get({
       articleId: $stateParams.articleId
     }).$promise;
   }

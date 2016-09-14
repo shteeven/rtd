@@ -2,31 +2,31 @@
   'use strict';
 
   angular
-    .module('articles.admin.routes')
+    .module('rtd.admin.routes')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('admin.articles', {
+      .state('admin.rtd', {
         abstract: true,
-        url: '/articles',
+        url: '/rtd',
         template: '<ui-view/>'
       })
-      .state('admin.articles.list', {
+      .state('admin.rtd.list', {
         url: '',
-        templateUrl: 'modules/articles/client/views/admin/list-articles.client.view.html',
-        controller: 'ArticlesAdminListController',
+        templateUrl: 'modules/rtd/client/views/admin/list-rtd.client.view.html',
+        controller: 'RtdAdminListController',
         controllerAs: 'vm',
         data: {
           roles: ['admin']
         }
       })
-      .state('admin.articles.create', {
+      .state('admin.rtd.create', {
         url: '/create',
-        templateUrl: 'modules/articles/client/views/admin/form-article.client.view.html',
-        controller: 'ArticlesAdminController',
+        templateUrl: 'modules/rtd/client/views/admin/form-article.client.view.html',
+        controller: 'RtdAdminController',
         controllerAs: 'vm',
         data: {
           roles: ['admin']
@@ -35,10 +35,10 @@
           articleResolve: newArticle
         }
       })
-      .state('admin.articles.edit', {
+      .state('admin.rtd.edit', {
         url: '/:articleId/edit',
-        templateUrl: 'modules/articles/client/views/admin/form-article.client.view.html',
-        controller: 'ArticlesAdminController',
+        templateUrl: 'modules/rtd/client/views/admin/form-article.client.view.html',
+        controller: 'RtdAdminController',
         controllerAs: 'vm',
         data: {
           roles: ['admin']
@@ -49,17 +49,17 @@
       });
   }
 
-  getArticle.$inject = ['$stateParams', 'ArticlesService'];
+  getArticle.$inject = ['$stateParams', 'RtdService'];
 
-  function getArticle($stateParams, ArticlesService) {
-    return ArticlesService.get({
+  function getArticle($stateParams, RtdService) {
+    return RtdService.get({
       articleId: $stateParams.articleId
     }).$promise;
   }
 
-  newArticle.$inject = ['ArticlesService'];
+  newArticle.$inject = ['RtdService'];
 
-  function newArticle(ArticlesService) {
-    return new ArticlesService();
+  function newArticle(RtdService) {
+    return new RtdService();
   }
 }());
