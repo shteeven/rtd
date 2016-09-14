@@ -1,11 +1,11 @@
 <div class="container" ng-controller="HeaderController as vm">
   <div class="navbar-header">
-    <button class="navbar-toggle" type="button" ng-click="vm.isCollapsed = !vm.isCollapsed">
+    <!-- <button class="navbar-toggle" type="button" ng-click="vm.isCollapsed = !vm.isCollapsed">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
-    </button>
+    </button> -->
     <a ui-sref="home" class="navbar-brand">RTD</a>
   </div>
   <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
@@ -13,17 +13,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
       <li ui-sref-active="active">
-        <form class="form-inline" ng-submit="vm.getRoute()">
-          <div class="form-group">
-            <label for="from">From</label>
-            <input ng-model="vm.from" type="text" class="form-control" id="from" placeholder="Basecamp">
-          </div>
-          <div class="form-group">
-            <label for="To">To</label>
-            <input type="text" ng-model="vm.to" class="form-control" id="To" placeholder="Galvanize">
-          </div>
-          <button type="submit" class="btn btn-success">Route</button>
-        </form>
+
       </li>
       <li class="divider-vertical"></li>
     </ul>

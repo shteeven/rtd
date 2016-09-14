@@ -1,6 +1,18 @@
+
+<form class="form-inline" ng-submit="vm.getRoute()">
+  <div class="form-group">
+    <label for="from">From</label>
+    <input ng-model="vm.from" type="text" class="form-control" id="from" placeholder="Basecamp">
+  </div>
+  <div class="form-group">
+    <label for="To">To</label>
+    <input type="text" ng-model="vm.to" class="form-control" id="To" placeholder="Galvanize">
+  </div>
+  <button type="submit" class="btn btn-success">Route</button>
+</form>
 <div ng-if="!vm.isRoute" class="background-image">
 
 </div>
 <div ng-if="vm.isRoute" class="map">
-
+  <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d6134.839305813218!2d-105.00636702477426!3d39.75268531626581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e3!4m5!1s0x876c78eae43de3dd%3A0xf85e04937b79bfa1!2sGalvanize+Denver+-+Platte%2C+Platte+Street%2C+Denver%2C+CO!3m2!1d39.7576313!2d-105.0070149!4m5!1s0x876c78daa5704dd1%3A0x4678e05486e37267!2s1515+Arapahoe+Street%2C+Denver%2C+CO!3m2!1d39.7477824!2d-104.99687619999999!5e0!3m2!1sen!2sus!4v1473821061942" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
 </div>
