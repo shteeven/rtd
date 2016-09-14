@@ -2,7 +2,7 @@
   background-image: url('https://hd.unsplash.com/photo-1452798991096-382940996d40');
   background-position: right center;
   background-size: cover;
-  height: 100vh;
+  height: 85vh;
 }
 
 h1 {
@@ -20,14 +20,27 @@ label {
 
 .btn-success {
   margin-left: 10px;
+
+}
+
+header {
+  margin-bottom: 0 !important;
 }
 
 .form-inline {
-
+  /*position: fixed;
+  top: 8px;
+  right: 50px;
+  z-index: 3000;*/
   text-align: center;
-  margin-top: 8px;
+  margin-bottom: 10px;
 }
 
-.map {
+.form-group {
+
+}
+
+iframe {
   width: 100%;
+  height: 85vh;
 }
